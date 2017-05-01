@@ -1,0 +1,8 @@
+language: node_js
+node_js: "6"
+services:
+    - mongodb
+before_script:
+    - npm i mocha -g
+    - npm i istanbul -g
+    - mongo mydb_test --eval 'db.addUser("travis", "test")'
