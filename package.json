@@ -21,6 +21,7 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-clean-css": "^3.0.4",
     "gulp-concat": "^2.6.1",
+    "gulp-filter": "^5.0.0",
     "gulp-inject": "^4.2.0",
     "gulp-main-bower-files": "^1.6.2",
     "gulp-pug": "^3.3.0",
