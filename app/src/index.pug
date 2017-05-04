@@ -1,0 +1,8 @@
+doctype html
+html
+    head
+        script(src="/assets/vendors/angular/angular.js")
+        script(src="./script.js")
+    body(ng-app='nightlife')
+        .main(ng-controller="MainController")
+            span {{ text }}

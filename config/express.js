@@ -1,16 +1,21 @@
 'use strict'
 const YelpAPI = require('./yelp-api');
+const express = require('express');
+const path = require('path');
 /**
  * Expose
  */
 
 module.exports = function(app,passport) {
-    
+    /*
     app.get('/', (req,res) => {
         
         res.send(200);
         
     });
+    */
+    
+    app.use('/', express.static('./public'));
     
     app.get('/api/v1', (req,res) => {
         
