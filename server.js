@@ -14,9 +14,11 @@ fs.readdirSync(models).filter(file => ~file.search(/^[^\.].*\.js$/))
     .forEach(file => require(path.join(models,file)));
 
 //Database connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/votetesting');
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/nightlife');
 
-require('./config/express')(app,passport)
+require('./config/express')(app,passport);
+require('./config/routes')(app,passport);
+
 
 let server = app.listen(port, () => { console.log(`Application running on port: ${port}`);});
 
