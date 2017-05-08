@@ -1,14 +1,12 @@
-var app = angular.module('nightlife', []);
+var app = angular.module('nightlife');
 
 
 app.controller('MainController', MainController);
-app.controller('ResultsController', ResultsController);
-app.service('ResultsService', ResultsService);
 
 
-MainController.$inject = [];
+MainController.$inject = ['LocationService'];
 
-function MainController() {
+function MainController(LocationService) {
     var ctrl = this;
     
     ctrl.text = "Welcome to Nightlife";
@@ -16,16 +14,22 @@ function MainController() {
     
     ctrl.location = "";
     
-    ctrl.getLocation = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(ctrl.currentPosition)
-        }
-    }
-    
-    ctrl.currentPosition = function(position) {
-        ctrl.lat = position.coords.latitude;
-        ctrl.long = position.coords.longitude;
+    ctrl.getLocation = function(useCurrent) {
         
-        console.log(ctrl.lat, ctrl.long);
-    }
+        if(useCurrent) {
+            LocationService.getLocation().then(function(position){
+            
+                ctrl.lat = position.coords.latitude;
+                ctrl.long = position.coords.longitude;
+            
+            }, function(err){
+            
+                console.log(err);
+            
+            });
+            
+        }
+        
+    };
+    
 }

@@ -16,9 +16,13 @@ html
                     .text-center.page-header
                         H3 {{ main.text }}
                     .text-center
-                        button.btn.btn-primary(ng-click="main.getLocation()")
+                        input.form-control(placeholder="Search Location" ng-model="main.location")
+                        button.btn.btn-primary(ng-click="main.getLocation(false)")
+                            span.glyphicon.glyphicon-search
+                            | &nbsp; Search
+                        button.btn.btn-primary(ng-click="main.getLocation(true)")
                             span.glyphicon.glyphicon-map-marker
-                            | &nbsp; Get My Current Location
+                            | &nbsp; Use My Current Location
             .row
                 .col-sm-12.col-md-8.col-md-offset-2(ng-controller="ResultsController as resultCtrl")
                     .panel-group(ng-if="resultCtrl.results != []")
