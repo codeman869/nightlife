@@ -31,8 +31,9 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "npm run build:dist && node server.js",
-    "build:dist": "bower install && gulp build:dist"
+    "start": "node server.js",
+    "postinstall": "bower install && gulp build:dist",
+    "build:dist": "npm run postinstall"
   },
   "author": "Cody Deckard <cjdeckard@gmail.com>",
   "license": "ISC"
