@@ -5,4 +5,7 @@ services:
 before_script:
     - npm i mocha -g
     - npm i istanbul -g
+    - npm i bower -g
+    - npm i gulp -g
     - mongo mydb_test --eval 'db.addUser("travis", "test")'
+    - npm run build:dist
