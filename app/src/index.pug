@@ -38,6 +38,11 @@ html
                                     a.btn.btn-primary(href="tel:{{business.phone}}") Call {{business.display_phone}}
                                 p Price: {{business.price}}
                                 p Rating: {{business.rating}} / 5 based on {{ business.review_count }} reviews
+                                p 
+                                | {{business.location.display_address[0]}}
+                                | {{business.location.display_address[1]}}
+                                p
+                                p Distance: {{business.distance | number: 0}} meters
                                 p
                                     a(href="{{business.url}}") More Info...
                                 
