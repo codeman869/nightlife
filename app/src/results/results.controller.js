@@ -17,6 +17,11 @@ function ResultsController(ResultsService, LocationService, $rootScope) {
         getResultsLatLong(location.lat, location.long);
     });
     
+    $rootScope.$on('newLocation', function() {
+        var location = LocationService.getLocation();
+        getLocation({location: location});
+    });
+    
     function getResultsLatLong(lat,long) {
         
         var location = new Object();
@@ -28,11 +33,18 @@ function ResultsController(ResultsService, LocationService, $rootScope) {
         
         ctrl.results = data;
         
-        console.log(ctrl.results);
+        //console.log(ctrl.results);
         
         });    
         
     };
+    
+    function getLocation(location) {
+        ResultsService.getResults(location).then(function(data){
+            
+            ctrl.results = data;
+        });
+    }
     
     
     
