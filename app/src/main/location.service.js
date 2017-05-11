@@ -10,12 +10,12 @@ function LocationService($q, $rootScope) {
     
     service.lat; service.long
     
-    service.getLocation = function() {
+    service.getGeoLocation = function() {
         
         return $q(function(resolve,reject){
             
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(resolve);
+                navigator.geolocation.getCurrentPosition(resolve, reject, {timeout: 10000});
             } else {
                 
                 reject(new Error('Geolocation not supported'));
@@ -26,8 +26,6 @@ function LocationService($q, $rootScope) {
             
             
         });
-        
-        
         
     };
     
@@ -42,4 +40,13 @@ function LocationService($q, $rootScope) {
         return {lat: service.lat, long: service.long};
     };
     
+    service.setLocation = function(location) {
+        service.location = location;
+        
+        $rootScope.$broadcast('newLocation');
+    };
+    
+    service.getLocation = function() {
+        return service.location;  
+    };
 }

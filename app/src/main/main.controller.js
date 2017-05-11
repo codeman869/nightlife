@@ -11,13 +11,13 @@ function MainController(LocationService) {
     
     ctrl.text = "Welcome to Nightlife";
     ctrl.lat, ctrl.long = null, null;
-    
+    ctrl.error = '';
     ctrl.location = "";
     
     ctrl.getLocation = function(useCurrent) {
-        
+        ctrl.error = '';
         if(useCurrent) {
-            LocationService.getLocation().then(function(position){
+            LocationService.getGeoLocation().then(function(position){
             
                 ctrl.lat = position.coords.latitude;
                 ctrl.long = position.coords.longitude;
@@ -26,10 +26,14 @@ function MainController(LocationService) {
             
             }, function(err){
             
-                console.log(err);
+                //console.log(err);
+                
+                ctrl.error = err;
             
             });
             
+        } else {
+            LocationService.setLocation(ctrl.location);
         }
         
     };

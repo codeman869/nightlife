@@ -23,6 +23,7 @@ html
                         button.btn.btn-primary(ng-click="main.getLocation(true)")
                             span.glyphicon.glyphicon-map-marker
                             | &nbsp; Use My Current Location
+                    .alert.alert-danger(ng-if="main.error != ''") {{main.error}}
             .row
                 .col-sm-12.col-md-8.col-md-offset-2(ng-controller="ResultsController as resultCtrl")
                     .panel-group(ng-if="resultCtrl.results != []")
