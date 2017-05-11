@@ -21,6 +21,8 @@ function MainController(LocationService) {
             
                 ctrl.lat = position.coords.latitude;
                 ctrl.long = position.coords.longitude;
+                
+                LocationService.setCurrentPosition(ctrl.lat,ctrl.long);
             
             }, function(err){
             
