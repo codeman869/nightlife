@@ -22,7 +22,7 @@ function getToken() {
         if(body) {
             var data = JSON.parse(body);
             //console.log(data);
-            console.log(`Received Token: ${data.access_token}`);
+            //console.log(`Received Token: ${data.access_token}`);
             TOKEN = data.access_token;
         }
         
