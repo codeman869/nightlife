@@ -1,6 +1,5 @@
 var path = require('path')
 var webpack = require('webpack')
-let devEnv = process.env.NODE_ENV === 'DEV'
 
 module.exports = {
     entry: './app/src/App.js',
@@ -34,11 +33,5 @@ module.exports = {
     stats: {
         colors: true
     },
-    devtool: 'source-map',
-    watch: devEnv,
-    watchOptions: {
-        aggregateTimeout: 300,
-        ignored: /node_modules/,
-        poll: 1000
-    }
+    
 }
