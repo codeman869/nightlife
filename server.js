@@ -16,6 +16,7 @@ fs.readdirSync(models).filter(file => ~file.search(/^[^\.].*\.js$/))
 //Database connection
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/nightlife');
 
+require('./config/passport')(passport);
 require('./config/express')(app,passport);
 require('./config/routes')(app,passport);
 
