@@ -2,4 +2,3 @@ data/
 mongod
 coverage/
 bower_components/
-public/

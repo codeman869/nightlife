@@ -21,8 +21,11 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "bl": "^1.2.1",
+    "body-parser": "^1.18.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "express-session": "^1.15.5",
+    "jsonwebtoken": "^8.0.1",
     "mongoose": "^4.9.7",
     "node": "^0.0.0",
     "passport": "^0.3.2",
@@ -37,15 +40,15 @@
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.81.0",
-    "webpack": "^3.5.4"
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.5.4",
+    "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.3.0",
-    "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack-merge": "^4.1.0"
+    "mocha": "^3.3.0"
   },
   "scripts": {
     "test": "echo $?",
