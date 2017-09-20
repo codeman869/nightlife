@@ -12,11 +12,8 @@ module.exports = new TwitterStrategy({
     
 }, (token, tokenSecret, profile, done) => {
     
-    console.log(token);
-    console.log(tokenSecret);
-    console.log(profile);
-    
-    User.findOrCreate(profile.username, 'twitter', (err,user) => {
+    const imageUrl = profile._json.profile_image_url_https
+    User.findOrCreate(profile.username, 'twitter', imageUrl, (err,user) => {
         
         if(err) return done(err);
         
