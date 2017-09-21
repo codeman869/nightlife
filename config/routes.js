@@ -5,6 +5,8 @@ const path = require('path')
 const mongoose = require('mongoose')
 
 const jwt = require('../app/services/jwt')
+const AttendanceController = require('../app/controllers/attendanceController')
+
 const User = mongoose.model('User')
 
 const indexFilePath = path.resolve(`${__dirname}/../public/index.html`) 
@@ -84,5 +86,6 @@ module.exports = function(app,passport) {
         
     })
     
+    app.post('/attendance/new', AttendanceController.attend)
     
 };
