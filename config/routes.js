@@ -87,5 +87,7 @@ module.exports = function(app,passport) {
     })
     
     app.post('/attendance/new', AttendanceController.attend)
+    app.get('/attendance', AttendanceController.countAttendance)
+    app.get('/attendance/:id', AttendanceController.getAttendance)
     
 };

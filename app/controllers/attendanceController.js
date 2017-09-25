@@ -1,6 +1,6 @@
 'use strict'
 const mongoose = require('mongoose')
-
+const moment = require('moment')
 const jwt = require('../services/jwt')
 
 const Attendance = mongoose.model('Attendance')
@@ -44,4 +44,25 @@ exports.attend = function(req,res) {
       return res.status(200).json(updatedAttendance)
       
    })  
+}
+
+exports.getAttendance = function(req,res) {
+   const location = String(req.params.id)
+   let currentDate = moment().seconds(0).minutes(0).hours(0)
+   Attendance.find({ place: location, date: {$gte: currentDate}}, (err,att) => {
+       if(err) return res.status(500).json(err)
+       
+       return res.status(200).json(att)   
+   }) 
+}
+
+exports.countAttendance = function(req,res) {
+    let currentDate = moment().seconds(0).minutes(0).hours(0)
+    
+    Attendance.find({date: {$gte: currentDate}}, (err,att) => {
+        if(err) return res.status(500).json(err)
+        
+        return res.status(200).json(att)
+    })
+    
 }
