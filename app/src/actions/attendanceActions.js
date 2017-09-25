@@ -18,6 +18,8 @@ export function attend(location) {
                    'authorization-token': authToken
                }
            }) 
+       }).catch((err)=>{
+           console.log(err)
        })
    } 
 }

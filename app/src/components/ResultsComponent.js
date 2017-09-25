@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 import * as s from '../actions/searchActions'
 import * as A from '../actions/attendanceActions'
@@ -66,6 +68,15 @@ export default class ResultsComponent extends Component {
             } 
                 return resultsDisplay
    }
+   notify(message) {
+       toast(message)
+   }
+   componentWillReceiveProps(nextProps) {
+       console.log(nextProps)
+       if(nextProps.attendance.error) {
+           this.notify(nextProps.attendance.errorMessage)
+       }
+   } 
     render() {
         
         const { results } = this.props
@@ -81,6 +92,14 @@ export default class ResultsComponent extends Component {
         
         return (
                 <div>
+                <ToastContainer
+                    position='top-right'
+                    type='default'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    pauseOnHover />
                 <MediaQuery maxDeviceWidth={599}>
                     <div style={this.mobileStyles}>
                         { resultsOutput }

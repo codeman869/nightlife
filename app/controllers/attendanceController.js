@@ -31,19 +31,27 @@ exports.attend = function(req,res) {
        error: true,
        message: 'No location specified for attendance' 
    })
-   
-   let newAttendance = new Attendance()
-   newAttendance.username = usr.username
-   newAttendance.place = place 
-   newAttendance.date = new Date()
-   newAttendance.save((err, updatedAttendance) => {
-       
+  //First check to see if the user is already scheduled to attend
+  let today = moment().seconds(0).minutes(0).hours(0)
+   Attendance.findOne({place: place, date: {$gte: today }, username: usr.username}, (err,att) => {
       if(err) return res.status(500).json(err)
+      if(att) return res.status(418).json({error: true, message: 'I\'m a teapot'})
+       
+      let newAttendance = new Attendance()
+      newAttendance.username = usr.username
+      newAttendance.place = place 
+      newAttendance.date = new Date()
+      newAttendance.save((err, updatedAttendance) => {
+       
+         if(err) return res.status(500).json(err)
       
       
-      return res.status(200).json(updatedAttendance)
+         return res.status(200).json(updatedAttendance)
       
-   })  
+      })   
+       
+   }) 
+     
 }
 
 exports.getAttendance = function(req,res) {
