@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
 import * as s from '../actions/searchActions'
+import * as R from '../actions/resultActions'
 
 import Result from './Result'
+
 @connect((store)=>{
     return {
        results: store.search.results
@@ -46,12 +48,16 @@ export default class ResultsComponent extends Component {
         }
     }
     
+   attend(location) {
+        this.props.dispatch(R.attend(location))     
+   } 
+   
    buildResults(results) {
        let resultsDisplay = [] 
        
         
             for(let i = 0; i < results.length; i++) {
-                resultsDisplay.push(<Result key={results[i].id} {...results[i]}/>)
+                resultsDisplay.push(<Result handleAttend={this.attend.bind(this)} key={results[i].id} {...results[i]}/>)
                 
                 
             } 
