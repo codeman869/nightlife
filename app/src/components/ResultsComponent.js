@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 
 import * as s from '../actions/searchActions'
-import * as R from '../actions/resultActions'
+import * as A from '../actions/attendanceActions'
 
 import Result from './Result'
 
 @connect((store)=>{
     return {
-       results: store.search.results
+       results: store.search.results,
+       attendance: store.attendance,
     }
 })
 export default class ResultsComponent extends Component {
@@ -46,18 +47,20 @@ export default class ResultsComponent extends Component {
             this.props.dispatch(s.restoreResults(results))
             this.oldResults = results 
         }
+        this.props.dispatch(A.getAttendance())
     }
     
    attend(location) {
-        this.props.dispatch(R.attend(location))     
+        this.props.dispatch(A.attend(location))     
    } 
    
    buildResults(results) {
        let resultsDisplay = [] 
-       
+        console.log(this.props) 
         
             for(let i = 0; i < results.length; i++) {
-                resultsDisplay.push(<Result handleAttend={this.attend.bind(this)} key={results[i].id} {...results[i]}/>)
+                let numAttendances = this.props.attendance.todaysAttendance.filter((item) => item.place === results[i].id).length
+                resultsDisplay.push(<Result handleAttend={this.attend.bind(this)} key={results[i].id} going={numAttendances} {...results[i]}/>)
                 
                 
             } 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import * as R from '../actions/resultActions'
 
 export default class Results extends Component {
     constructor(props) {
@@ -31,7 +30,7 @@ export default class Results extends Component {
     
     render() {
        
-       const { name, image_url, location, phone, display_phone, price, rating, id, url } = this.props
+       const { name, image_url, location, going, phone, display_phone, price, rating, id, url } = this.props
        
      return (
          
@@ -46,7 +45,7 @@ export default class Results extends Component {
                 <span key={id+"price"}>
                 Price: {price}</span>
                 <span key={id+"rating"}>Rating: {rating} / 5</span>
-                <span key={id+"going"}>3 Going</span>
+                <span key={id+"going"}>{going} Going</span>
                 <div className="btn-group" key={id+"buttons"}>
                     <a key={id+"Imgoing"} className="btn btn-default" onClick={this.handleClick.bind(this)}>I'm Going</a>
                     <a key={id+"MoreInfo"} className="btn btn-primary" href={url}>More Info</a>

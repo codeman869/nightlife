@@ -21,3 +21,10 @@ export function attend(location) {
        })
    } 
 }
+
+export function getAttendance() {
+    return {
+        type: 'GET_ATTENDANCE',
+        payload: axios.get('/attendance')
+    }
+}
