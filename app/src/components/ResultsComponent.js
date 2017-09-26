@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 import * as s from '../actions/searchActions'
+import * as A from '../actions/attendanceActions'
 
 import Result from './Result'
+
 @connect((store)=>{
     return {
-       results: store.search.results
+       results: store.search.results,
+       attendance: store.attendance,
     }
 })
 export default class ResultsComponent extends Component {
@@ -44,19 +49,33 @@ export default class ResultsComponent extends Component {
             this.props.dispatch(s.restoreResults(results))
             this.oldResults = results 
         }
+        this.props.dispatch(A.getAttendance())
     }
     
+   attend(location) {
+        this.props.dispatch(A.attend(location))     
+   } 
+   
    buildResults(results) {
        let resultsDisplay = [] 
-       
         
             for(let i = 0; i < results.length; i++) {
-                resultsDisplay.push(<Result key={results[i].id} {...results[i]}/>)
+                let numAttendances = this.props.attendance.todaysAttendance.filter((item) => item.place === results[i].id).length
+                resultsDisplay.push(<Result handleAttend={this.attend.bind(this)} key={results[i].id} going={numAttendances} {...results[i]}/>)
                 
                 
             } 
                 return resultsDisplay
    }
+   notify(message) {
+       toast.info(message)
+   }
+   componentWillReceiveProps(nextProps) {
+       
+       if(nextProps.attendance.error) {
+           this.notify(nextProps.attendance.errorMessage)
+       }
+   } 
     render() {
         
         const { results } = this.props
@@ -72,6 +91,14 @@ export default class ResultsComponent extends Component {
         
         return (
                 <div>
+                <ToastContainer
+                    position='top-right'
+                    type='info'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    pauseOnHover />
                 <MediaQuery maxDeviceWidth={599}>
                     <div style={this.mobileStyles}>
                         { resultsOutput }
