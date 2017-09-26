@@ -35,28 +35,18 @@ export default class NavBar extends Component {
        
     }   
     
+    logoutUser() {
+       const { loggedIn, authToken } = this.props.auth
+       if(loggedIn) {
+           this.props.dispatch(A.logoutUser(authToken))
+       }
+    }
+    
     render() {
         const { username, loggedIn, profileImage } = this.props.auth
         let displayValue
         if(loggedIn) {
-           displayValue = (
-                <nav className="navbar navbar-default">
-                    <div className="container-fluid">
-                            <Link to="/" className="navbar-brand">NightLife</Link> 
-                            <ul className="nav navbar-nav navbar-right">
-                               <li>
-                                <img src={ profileImage } style={{borderRadius: 100 + "%"}}/>
-                               </li>
-                                <li>
-                                    <span className="navbar-text"> Logged in as {username} </span>
-                                </li>
-                                <li>
-                                    <a href="/auth/twitter"> Logout</a>
-                                </li>
-                            </ul>
-                    </div>
-                </nav>
-            ) 
+            
             displayValue = (
                     <div>
                     <MediaQuery maxDeviceWidth={750}>
@@ -82,7 +72,7 @@ export default class NavBar extends Component {
                                         margin: "auto",
                                         textAlign: "center",
                                     }} className="navbar-text"> Logged in as {username} </span>
-                                    <a href="/auth/twitter" className="btn nav-btn" style={{
+                                    <a onClick={this.logoutUser.bind(this)} className="btn nav-btn" style={{
                                         gridArea: "3 / 2 / 3 / 2",
                                         margin: "auto"
                                     }}> Logout</a>
@@ -102,7 +92,7 @@ export default class NavBar extends Component {
                                     <span className="navbar-text"> Logged in as {username} </span>
                                 </li>
                                 <li>
-                                    <a href="/auth/twitter"> Logout</a>
+                                    <a onClick={this.logoutUser.bind(this)}> Logout</a>
                                 </li>
                             </ul>
                     </div>
