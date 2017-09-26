@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 const jwt = require('../app/services/jwt')
 const AttendanceController = require('../app/controllers/attendanceController')
+const AuthController = require('../app/controllers/authController')
 
 const User = mongoose.model('User')
 
@@ -26,14 +27,6 @@ function isAuthenticated(req,res,next) {
 
 module.exports = function(app,passport) {
     
-    //app.use('/', express.static('./public'));
-    app.get('/cc_on.svg', (req, res) => {
-        
-        res.header('Content-type', 'image/svg+xml')
-       const filePath = path.resolve(`${__dirname}/../public/cc_on.svg`) 
-       res.sendFile(filePath)
-    })   
-    
    app.use('/', express.static('./public'));
    app.get('/login', (req,res)=> {
       res.sendFile(indexFilePath)
@@ -43,13 +36,6 @@ module.exports = function(app,passport) {
        
       res.sendFile(indexFilePath)
    })
-   /*
-   app.get('/', (req,res) => {
-      const filePath = path.resolve(`${__dirname}/../public/index.html`) 
-      console.log(filePath)
-      res.sendFile(filePath)
-   })
-  */ 
     
     app.get('/api/v1', Api.main);
     
@@ -57,34 +43,10 @@ module.exports = function(app,passport) {
     
     app.get('/auth/twitter', passport.authenticate('twitter', {session: false}));
     
-    app.get('/auth/twitter/callback', passport.authenticate('twitter'//, { 
-        //successRedirect: '/',
-        //failureRedirect: '/api/v1'
-    //}
-    ), (req,res) => {
-      
-      let usr = req.user 
-      const token = jwt.signToken({profileImage: usr.image_url, username: usr.username, domain: usr.domain}) 
-      usr.token = token 
-      res.cookie('user', usr.token)
-       
-      return res.redirect('/')
-      //return res.redirect('/loginSuccess')
-    });
+    app.get('/auth/twitter/callback', passport.authenticate('twitter'), AuthController.issueToken);
     
-    app.post('/auth', (req,res) => {
-        
-        let token = req.body.token 
-        
-        let usr = jwt.verifyToken(token)    
-        
-        if(!usr) return res.sendStatus(401)
-        
-        return res.json(usr)
-        
-        
-        
-    })
+    app.post('/auth', AuthController.verifyToken)
+    app.delete('/auth/token', AuthController.blacklistToken)  
     
     app.post('/attendance/new', AttendanceController.attend)
     app.get('/attendance', AttendanceController.countAttendance)

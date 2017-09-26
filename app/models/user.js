@@ -1,6 +1,5 @@
 'use strict'
 const mongoose = require('mongoose');
-const jwt = require('./../services/jwt')
 
 let UserSchema = new mongoose.Schema(
     {
@@ -24,19 +23,9 @@ UserSchema.statics.findOrCreate = function(username,domain, imageUrl, done) {
       if(err) return done(err);
       
       if(usr) {
-          
-         
+        
          return done(null,usr)
-         //let jwtToken = jwt.signToken({username: usr.username, domain: usr.domain}) 
-         
-         /*usr.token = jwtToken
-         usr.save((err, updatedUsr) => {
-            if(err) return done(err)
-             
-            return done(null, updatedUsr) 
-         })
-         */
-         
+        
       }
       
       let newUser = new User();
@@ -44,7 +33,6 @@ UserSchema.statics.findOrCreate = function(username,domain, imageUrl, done) {
       newUser.username = username;
       newUser.domain = domain;
       newUser.image_url = imageUrl 
-      console.log(newUser)
       newUser.save((err) => {
           
           if(err) return done(err);

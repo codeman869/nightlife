@@ -22,6 +22,14 @@ export default (state=initialState, action) => {
         case 'SET_USER_DATA':
             const { username, domain, exp, authToken, profileImage } = action.payload
             state = { ...state, username, domain, expires: exp, authToken, profileImage }
+            break
+        case 'LOGOUT_USER_PENDING':
+            break
+        case 'LOGOUT_USER_FULFILLED':
+            state = { ...initialState }
+            break
+        case 'LOGOUT_USER_REJECTED':
+            break
     }
     return state   
 }
