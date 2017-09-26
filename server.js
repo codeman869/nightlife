@@ -20,6 +20,8 @@ require('./config/passport')(passport);
 require('./config/express')(app,passport);
 require('./config/routes')(app,passport);
 
+const jwt = require('./app/services/jwt')
+setInterval(jwt.clearBlacklists, jwt.callbackDelay)
 
 let server = app.listen(port, () => { console.log(`Application running on port: ${port}`);});
 

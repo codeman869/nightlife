@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken')
 const uuidv4 = require('uuid/v4')
 const mongoose = require('mongoose')
+const moment = require('moment')
 
 const BlacklistToken = mongoose.model('BlacklistToken')
 
@@ -11,6 +12,8 @@ const expiration = "2 days"
 /**
  * Expose
  */
+
+exports.callbackDelay = 3600000 * 6  //6 hours
 
 exports.signToken = function(obj) {
     const id = uuidv4()    
@@ -40,4 +43,12 @@ exports.verifyToken = function(token, cb) {
     }
     
     
+}
+
+exports.clearBlacklists = function() {
+    let cutoff = moment().subtract(2, 'd')
+    BlacklistToken.remove({createdAt: {$lte: cutoff}}, (err) => {
+        if(err) console.warn(err)
+    }) 
+        
 }
