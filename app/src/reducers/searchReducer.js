@@ -19,7 +19,7 @@ export default (state=initialState, action) => {
             state = { ...state, fetching: false, results: data.businesses}
             break
         case 'RESTORE_RESULTS':
-            results = action.payload.results
+            results = action.payload
             state = { ...state, results }
             break 
         case 'CLEAR_RESULTS':
