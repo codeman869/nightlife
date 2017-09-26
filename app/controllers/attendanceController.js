@@ -19,9 +19,8 @@ exports.attend = function(req,res) {
    
     let token = req.headers['authorization-token'] 
     
-    let usr = jwt.verifyToken(token)
-    
-    if(!usr) return res.status(401).json({
+    jwt.verifyToken(token, (err, usr) => {
+     if(!usr) return res.status(401).json({
         error: true,
         message: 'Invalid token!'
     })
@@ -50,7 +49,11 @@ exports.attend = function(req,res) {
       
       })   
        
-   }) 
+   })   
+        
+    })
+    
+     
      
 }
 
