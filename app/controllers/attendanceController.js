@@ -35,7 +35,7 @@ exports.attend = function(req,res) {
   let today = moment().seconds(0).minutes(0).hours(0)
    Attendance.findOne({place: place, date: {$gte: today }, username: usr.username}, (err,att) => {
       if(err) return res.status(500).json(err)
-      if(att) return res.status(418).json({error: true, message: 'I\'m a teapot'})
+      if(att) return res.status(418).json({error: true, message: 'You have already registered to attend today'})
        
       let newAttendance = new Attendance()
       newAttendance.username = usr.username

@@ -58,7 +58,6 @@ export default class ResultsComponent extends Component {
    
    buildResults(results) {
        let resultsDisplay = [] 
-        console.log(this.props) 
         
             for(let i = 0; i < results.length; i++) {
                 let numAttendances = this.props.attendance.todaysAttendance.filter((item) => item.place === results[i].id).length
@@ -69,10 +68,10 @@ export default class ResultsComponent extends Component {
                 return resultsDisplay
    }
    notify(message) {
-       toast(message)
+       toast.info(message)
    }
    componentWillReceiveProps(nextProps) {
-       console.log(nextProps)
+       
        if(nextProps.attendance.error) {
            this.notify(nextProps.attendance.errorMessage)
        }
@@ -94,7 +93,7 @@ export default class ResultsComponent extends Component {
                 <div>
                 <ToastContainer
                     position='top-right'
-                    type='default'
+                    type='info'
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}
