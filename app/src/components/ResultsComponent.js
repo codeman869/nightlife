@@ -14,6 +14,7 @@ import Result from './Result'
     return {
        results: store.search.results,
        attendance: store.attendance,
+       auth: store.auth,
     }
 })
 export default class ResultsComponent extends Component {
@@ -56,12 +57,21 @@ export default class ResultsComponent extends Component {
         this.props.dispatch(A.attend(location))     
    } 
    
+   cancel(location) {
+      this.props.dispatch(A.cancel(location)) 
+   }
+   
    buildResults(results) {
        let resultsDisplay = [] 
-        
+       
+       const currentUser = this.props.auth.username
+          
             for(let i = 0; i < results.length; i++) {
-                let numAttendances = this.props.attendance.todaysAttendance.filter((item) => item.place === results[i].id).length
-                resultsDisplay.push(<Result handleAttend={this.attend.bind(this)} key={results[i].id} going={numAttendances} {...results[i]}/>)
+                let attendances = this.props.attendance.todaysAttendance.filter((item) => item.place === results[i].id)
+                let numAttendances = attendances.length
+                
+                let isCurrentUserAttending = attendances.filter((item) => item.username === currentUser).length === 1 
+                resultsDisplay.push(<Result cancelAttend={this.cancel.bind(this)} handleAttend={this.attend.bind(this)} key={results[i].id} amAttending={isCurrentUserAttending} going={numAttendances} {...results[i]}/>)
                 
                 
             } 

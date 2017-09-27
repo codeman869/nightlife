@@ -34,7 +34,6 @@ export function setUserData(data, token) {
 }
 
 export function logoutUser(token) {
-    console.log(token)
     return {
        type: 'LOGOUT_USER',
        payload: axios.delete('/auth/token',  {

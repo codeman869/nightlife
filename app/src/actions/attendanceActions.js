@@ -30,3 +30,20 @@ export function getAttendance() {
         payload: axios.get('/attendance')
     }
 }
+
+export function cancel(location) {
+    return (dispatch, getState) => {
+       const auth = getState().auth 
+       
+       return dispatch({
+           type: 'CANCEL_ATTEND',
+           payload: axios.delete(`/attendance/${location}`, {
+              headers: {
+                  'authorization-token': auth.authToken
+              } 
+           }).then((data)=>{
+               dispatch(getAttendance())
+           })
+       })
+    }
+}
