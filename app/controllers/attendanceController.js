@@ -77,3 +77,34 @@ exports.countAttendance = function(req,res) {
     })
     
 }
+
+exports.remoteAttendance = function(req,res) {
+    
+    let currentDate = moment().seconds(0).minutes(0).hours(0)
+    const location = String(req.params.id)
+    if(!req.headers['authorization-token']) return res.status(401).json({
+        error: true,
+        message: 'No authorization token found in request'
+    })
+   
+    let token = req.headers['authorization-token'] 
+    
+    jwt.verifyToken(token, (err, usr) => {
+        
+        if(err) return res.status(500).json({error: true, message: err})
+        
+        if(!usr) return res.status(401).json({
+            error: true,
+            message: 'Invalid token!'
+         })
+      
+        Attendance.findOneAndRemove({date: {$gte: currentDate}, username: usr.username}, (error, att) => {
+            
+            if(error) return res.status(500).json({error: true, message: error})
+            
+            if(!att) return res.status(418).json({error: true, message: 'Unable to find attendance'})
+            
+            return res.status(200).json({error: false, message: 'Successfully removed attendance'})
+        })
+    })
+}
