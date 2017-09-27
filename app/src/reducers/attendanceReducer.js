@@ -21,6 +21,16 @@ export default (state=initialState, action) => {
        case 'GET_ATTENDANCE_FULFILLED':
            let todaysAttendance = action.payload.data
            state = { ...state, todaysAttendance }
+           break
+        case 'CANCEL_ATTEND_PENDING':
+            break
+        case 'CANCEL_ATTEND_FULFILLED':
+            break
+        case 'CANCEL_ATTEND_REJECTED':
+            break
+            // code
+            break;
+        
         
        
     }

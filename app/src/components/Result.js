@@ -11,6 +11,7 @@ export default class Results extends Component {
             width: "100%",
             height: "auto",
             gridRow: "1 / 2",
+            maxHeight: "250px",
             
         }
         this.cardStyle = {
@@ -27,6 +28,11 @@ export default class Results extends Component {
        const { id } = this.props
        this.props.handleAttend(id)
    } 
+   
+   handleCanx() {
+       const { id } = this.props
+       this.props.cancelAttend(id)
+   }
     
     render() {
        
@@ -46,9 +52,15 @@ export default class Results extends Component {
                 Price: {price}</span>
                 <span key={id+"rating"}>Rating: {rating} / 5</span>
                 <span key={id+"going"}>{going} Going</span>
-                <div className="btn-group" key={id+"buttons"}>
+                <div style={{margin: "auto"}} className="btn-group" key={id+"buttons"}>
                     <a key={id+"Imgoing"} className="btn btn-default" onClick={this.handleClick.bind(this)}>I'm Going</a>
                     <a key={id+"MoreInfo"} className="btn btn-primary" href={url}>More Info</a>
+                    { this.props.amAttending &&
+                       <a key={id+"canxAttend"} className="btn btn-danger" onClick={this.handleCanx.bind(this)}>Cancel</a>
+                       
+                        }
+                    
+                    
                 </div>
          </div>
          

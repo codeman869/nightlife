@@ -49,6 +49,7 @@ module.exports = function(app,passport) {
     app.delete('/auth/token', AuthController.blacklistToken)  
     
     app.post('/attendance/new', AttendanceController.attend)
+    app.delete('/attendance/:id', AttendanceController.remoteAttendance)
     app.get('/attendance', AttendanceController.countAttendance)
     app.get('/attendance/:id', AttendanceController.getAttendance)
     
