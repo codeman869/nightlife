@@ -44,12 +44,17 @@ export default class ResultsComponent extends Component {
     }
     
     componentWillMount() {
+        /*
         const oldResults= localStorage.getItem('searchResults')     
-        if(oldResults!= null) {
+        console.log("old Results to follow")
+        console.log(oldResults)
+        console.log("End old results")
+        if(oldResults!=null || oldResults != undefined) {
             const results =   JSON.parse(oldResults)
             this.props.dispatch(s.restoreResults(results))
             this.oldResults = results 
         }
+        */
         this.props.dispatch(A.getAttendance())
     }
     

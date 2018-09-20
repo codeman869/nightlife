@@ -6,6 +6,5 @@ const path = require('path');
  */
  
 exports.root = path.join(__dirname, '..');
-exports.yelpID = process.env.yelpID || 'testID';
-exports.yelpSecret = process.env.yelpSecret || 'yelpSecret';
+exports.yelpAPI = process.env.yelpAPI || 'yelpSecret';
 
