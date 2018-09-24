@@ -101,9 +101,7 @@ describe('Basic setup testing',() => {
                chai.request(server)
                     .get('/api/v1/business')
                     .end((err,res) =>{
-                        
-                        err.should.exist;
-                        
+                       
                         res.should.have.status(400);
                         
                         done();
