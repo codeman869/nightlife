@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
 import * as s from '../actions/searchActions'
-import * as A from '../actions/attendanceActions'
+import { getAttendance, attend, cancel } from '../actions/attendanceActions'
 
 import Result from './Result'
 
@@ -15,6 +15,12 @@ import Result from './Result'
        results: store.search.results,
        attendance: store.attendance,
        auth: store.auth,
+    }
+}, (dispatch) => {
+    return {
+        getAttendance: (location) => dispatch(getAttendance(location)),
+        attend: (location) => dispatch(attend(location)),
+        cancel: (location) => dispatch(cancel(location)),
     }
 })
 export default class ResultsComponent extends Component {
@@ -43,27 +49,17 @@ export default class ResultsComponent extends Component {
         }
     }
     
-    componentWillMount() {
-        /*
-        const oldResults= localStorage.getItem('searchResults')     
-        console.log("old Results to follow")
-        console.log(oldResults)
-        console.log("End old results")
-        if(oldResults!=null || oldResults != undefined) {
-            const results =   JSON.parse(oldResults)
-            this.props.dispatch(s.restoreResults(results))
-            this.oldResults = results 
-        }
-        */
-        this.props.dispatch(A.getAttendance())
+    componentDidMount() {
+        
+        this.props.getAttendance()
     }
     
    attend(location) {
-        this.props.dispatch(A.attend(location))     
+        this.props.attend(location)    
    } 
    
    cancel(location) {
-      this.props.dispatch(A.cancel(location)) 
+      this.props.cancel(location) 
    }
    
    buildResults(results) {

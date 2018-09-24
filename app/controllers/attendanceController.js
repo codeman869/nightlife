@@ -104,7 +104,7 @@ exports.remoteAttendance = function(req,res) {
             
             if(!att) return res.status(418).json({error: true, message: 'Unable to find attendance'})
             
-            return res.status(200).json({error: false, message: 'Successfully removed attendance'})
+            return res.status(200).json({error: false, message: 'Successfully removed attendance', location})
         })
     })
 }

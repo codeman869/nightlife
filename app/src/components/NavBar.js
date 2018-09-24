@@ -3,12 +3,17 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import MediaQuery from 'react-responsive'
-import * as A from '../actions/authActions'
+import { logoutUser, checkToken } from '../actions/authActions'
 
 @connect((store) => {
     return {
         auth: store.auth
     }    
+}, (dispatch) => {
+    return {
+       logout: (token) => dispatch(logoutUser(token)), 
+       checkToken: (token) => dispatch(checkToken(token)),
+    }
 })
 export default class NavBar extends Component {
     
@@ -26,7 +31,7 @@ export default class NavBar extends Component {
           if(cookieName == 'user') {
               let cookieValue = unescape(tempCookie[1].replace(/^\s+/g, ''))
               cookieValue = cookieValue.replace(/\s+$/g, '')
-              this.props.dispatch(A.checkToken(cookieValue))
+              this.props.checkToken(cookieValue)
               break
           }
           
@@ -38,7 +43,7 @@ export default class NavBar extends Component {
     logoutUser() {
        const { loggedIn, authToken } = this.props.auth
        if(loggedIn) {
-           this.props.dispatch(A.logoutUser(authToken))
+           this.props.logout(authToken)
        }
     }
     

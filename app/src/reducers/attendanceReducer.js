@@ -23,15 +23,15 @@ export default (state=initialState, action) => {
            state = { ...state, todaysAttendance }
            break
         case 'CANCEL_ATTEND_PENDING':
+            state = { ...state, error: false, errorMessage: "" }
             break
         case 'CANCEL_ATTEND_FULFILLED':
+            todaysAttendance = state.todaysAttendance.filter((item) => item.place !== action.payload.data.location )
+            state = { ...state, todaysAttendance, error: false, errorMessage: "" }
             break
         case 'CANCEL_ATTEND_REJECTED':
+            state = { ...state, error: true, errorMessage: "Failed to remove atteandance" }
             break
-            // code
-            break;
-        
-        
        
     }
     return state
