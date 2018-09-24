@@ -37,12 +37,11 @@ export function cancel(location) {
        
        return dispatch({
            type: 'CANCEL_ATTEND',
+           location,
            payload: axios.delete(`/attendance/${location}`, {
               headers: {
                   'authorization-token': auth.authToken
               } 
-           }).then((data)=>{
-               dispatch(getAttendance())
            })
        })
     }

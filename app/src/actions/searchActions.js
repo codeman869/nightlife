@@ -11,15 +11,15 @@ export function search(location) {
           
       }).then(( { value }) => {
           
-          localStorage.setItem('searchResults', JSON.stringify(value.data.businesses))
+          window.localStorage.setItem('searchResults', JSON.stringify(value.data.businesses))
       })
   }
     
 }
 
 export function clearResults() {
-    localStorage.removeItem('savedSearch')
-    localStorage.removeItem('searchResults')
+    window.localStorage.removeItem('savedSearch')
+    window.localStorage.removeItem('searchResults')
     
     return {
         type: 'CLEAR_RESULTS'
@@ -28,7 +28,7 @@ export function clearResults() {
 
 export function setLocation(location) {
     
-   localStorage.setItem('savedSearch', location)   
+   window.localStorage.setItem('savedSearch', location)   
    
     return {
         type: 'SET_LOCATION',
